@@ -57,7 +57,7 @@ public sealed class PlayerMotor2D : MonoBehaviour
 
     void HandleMove()
     {
-        float target = input.Move.x * maxSpeed;
+        float target = input.MoveX * maxSpeed;
         float speedDiff = target - rb.linearVelocity.x;
 
         bool grounded = groundCheck != null && groundCheck.IsGrounded;
