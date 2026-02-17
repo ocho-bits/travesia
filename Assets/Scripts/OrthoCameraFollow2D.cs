@@ -17,6 +17,9 @@ public sealed class OrthoCameraFollow2D : MonoBehaviour
     private float _velX;
     private float _velY;
 
+    // ✅ Look-ahead can write here
+    private Vector2 _externalOffset;
+
     void Awake()
     {
         if (target == null)
@@ -31,8 +34,11 @@ public sealed class OrthoCameraFollow2D : MonoBehaviour
         if (target == null) return;
 
         Vector3 pos = transform.position;
-        float targetX = target.position.x + offset.x;
-        float targetY = lockY ? pos.y : (target.position.y + offset.y);
+
+        Vector2 totalOffset = offset + _externalOffset;
+
+        float targetX = target.position.x + totalOffset.x;
+        float targetY = lockY ? pos.y : (target.position.y + totalOffset.y);
 
         float x = Mathf.SmoothDamp(pos.x, targetX, ref _velX, smoothTimeX);
         float y = Mathf.SmoothDamp(pos.y, targetY, ref _velY, smoothTimeY);
@@ -41,4 +47,7 @@ public sealed class OrthoCameraFollow2D : MonoBehaviour
     }
 
     public void SetTarget(Transform t) => target = t;
+
+    // ✅ Called by look-ahead module
+    public void SetExternalOffset(Vector2 extraOffset) => _externalOffset = extraOffset;
 }
