@@ -49,11 +49,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistortStrength: 0.01
+    - _DistortStrength: 0
     - _EnableExternalAlpha: 0
     - _FadePower: 2
-    - _NoiseScale: 8
-    - _NoiseSpeed: 1
+    - _NoiseScale: 0.1
+    - _NoiseSpeed: 0
     - _ReflectionStrength: 0.75
     - _ZWrite: 0
     m_Colors:
