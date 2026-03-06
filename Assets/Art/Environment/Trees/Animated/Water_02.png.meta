@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a2f1b06c50549a4faccac13da1ae17b
+guid: 7511dee4c2f0c124cbe1e8cf116c87d3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Water_Ripples-sheet_0
+      name: Water_02_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 123
-        width: 69
-        height: 5
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac6e5c045382a6243a3aa95c72983956
-      internalID: -1839988945
+      spriteID: 04b8690be1fa8394c9338bee8e18299d
+      internalID: 584921466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_1
+      name: Water_02_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 118
-        width: 69
-        height: 5
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07abe06a367712649bc12580622915c2
-      internalID: -302038768
+      spriteID: 8d279f598ec8a4e4c8fadac31cdeb715
+      internalID: 123553901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_2
+      name: Water_02_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 113
-        width: 69
-        height: 5
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a5cd656a0ba6784e8bf5e0cc2791199
-      internalID: 604383998
+      spriteID: cf15eae97c620254f89cb4945bc63dd6
+      internalID: 1133693237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_3
+      name: Water_02_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 108
-        width: 69
-        height: 5
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,20 +178,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2039b5736c0a0264294b16adc003c10e
-      internalID: -958337622
+      spriteID: 6e8a8e4371894cc4cb6a4c4670653668
+      internalID: 1274513410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_4
+      name: Water_02_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 103
-        width: 69
-        height: 5
+        x: 128
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +200,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2333d579da42af04a8faea8b2cedc36d
-      internalID: -1571589505
+      spriteID: a9a5b267a9222524fb875f88e511c46f
+      internalID: -488025611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_5
+      name: Water_02_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 98
-        width: 69
-        height: 5
+        x: 160
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,20 +222,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb8d66d8ed2cd974b9bcc17a48cfcdf9
-      internalID: -1905595911
+      spriteID: eea0dedf1ab3ce544aa281315aeeaca8
+      internalID: 1733914502
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_6
+      name: Water_02_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 93
-        width: 69
-        height: 5
+        x: 192
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,20 +244,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5f3edabc3de14941b4373d1b8c01801
-      internalID: -1319976715
+      spriteID: b4cb3b74cbaa6734d9f56c5403c4d04f
+      internalID: 1308770290
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_7
+      name: Water_02_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 88
-        width: 69
-        height: 5
+        x: 224
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a301870f749837e44abfd353cbc88496
-      internalID: -2004088019
+      spriteID: 582f9209f6392b64089a46f0ee13aea5
+      internalID: 1354108720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_8
+      name: Water_02_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 83
-        width: 69
-        height: 5
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,20 +288,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c717279f5545dfe4980b628cd2dd1f72
-      internalID: 2083903985
+      spriteID: c9866ef7725af6647897550d02b4aaba
+      internalID: -88045176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_9
+      name: Water_02_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 78
-        width: 69
-        height: 5
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,20 +310,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84fe1703f148ab144a8c5ab5dc112846
-      internalID: 1252522222
+      spriteID: 777585546e5dc5048972ff72623e58f1
+      internalID: -967736325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Water_Ripples-sheet_10
+      name: Water_02_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 73
-        width: 69
-        height: 5
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,8 +332,162 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed206c3fff4039a45b80d12581101533
-      internalID: -767131384
+      spriteID: e9f89db5f1c9dc943a4929d4951048ab
+      internalID: -1480968841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a5e2c85d408759429eabe0bd5eeb9d3
+      internalID: -2051664629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beb0d73783b64ae43af45f0a7b7c0e6a
+      internalID: 471659295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_13
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c65276d3f8377ce42a46e1601c4b91eb
+      internalID: -86189904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc9aca518d20214ba6802c9a065a3a9
+      internalID: 2043517175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef064288481ef22449c6fbfbf5af2bef
+      internalID: 1186978761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09e022bea6db7f843ae6c26c5ae7b4fa
+      internalID: 1600372280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_02_17
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a912eaf9367e10b49825f870ab4f1e29
+      internalID: 1820222174
       vertices: []
       indices: 
       edges: []
@@ -352,19 +506,26 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":69.0,"y":5.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Water_Ripples-sheet_0: -1839988945
-      Water_Ripples-sheet_1: -302038768
-      Water_Ripples-sheet_10: -767131384
-      Water_Ripples-sheet_2: 604383998
-      Water_Ripples-sheet_3: -958337622
-      Water_Ripples-sheet_4: -1571589505
-      Water_Ripples-sheet_5: -1905595911
-      Water_Ripples-sheet_6: -1319976715
-      Water_Ripples-sheet_7: -2004088019
-      Water_Ripples-sheet_8: 2083903985
-      Water_Ripples-sheet_9: 1252522222
+      Water_02_0: 584921466
+      Water_02_1: 123553901
+      Water_02_10: -1480968841
+      Water_02_11: -2051664629
+      Water_02_12: 471659295
+      Water_02_13: -86189904
+      Water_02_14: 2043517175
+      Water_02_15: 1186978761
+      Water_02_16: 1600372280
+      Water_02_17: 1820222174
+      Water_02_2: 1133693237
+      Water_02_3: 1274513410
+      Water_02_4: -488025611
+      Water_02_5: 1733914502
+      Water_02_6: 1308770290
+      Water_02_7: 1354108720
+      Water_02_8: -88045176
+      Water_02_9: -967736325
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
