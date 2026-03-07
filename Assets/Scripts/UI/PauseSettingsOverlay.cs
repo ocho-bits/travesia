@@ -27,6 +27,7 @@ public class PauseSettingsOverlay : MonoBehaviour
     private Sprite _whiteSprite;
 
     private GameObject _uiRoot;
+    private GameObject _overlay;
     private GameObject _panel;
     private TMP_Text _languageText;
     private bool _isOpen;
@@ -105,7 +106,17 @@ public class PauseSettingsOverlay : MonoBehaviour
         EnsureEventSystem();
         EnsureUI();
         _uiRoot.SetActive(true);
-        _panel.SetActive(false);
+
+        if (_overlay != null)
+        {
+            _overlay.SetActive(false);
+        }
+
+        if (_panel != null)
+        {
+            _panel.SetActive(false);
+        }
+
         _isOpen = false;
         Time.timeScale = 1f;
         ApplyCurrentSettingsToRuntime();
@@ -140,8 +151,9 @@ public class PauseSettingsOverlay : MonoBehaviour
 
         RectTransform root = _uiRoot.GetComponent<RectTransform>();
 
-        Image overlay = CreateImage("Overlay", root, new Color(0f, 0f, 0f, 0.45f));
-        Stretch(overlay.rectTransform);
+        Image overlayImage = CreateImage("Overlay", root, new Color(0f, 0f, 0f, 0.45f));
+        Stretch(overlayImage.rectTransform);
+        _overlay = overlayImage.gameObject;
 
         _panel = CreatePanel("SettingsPanel", root, new Vector2(1300f, 760f), Color.white);
 
@@ -157,6 +169,7 @@ public class PauseSettingsOverlay : MonoBehaviour
         Button resume = CreateButton("Resume", _panel.transform as RectTransform, new Vector2(260f, 80f), Close);
         resume.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -300f);
 
+        _overlay.SetActive(false);
         _panel.SetActive(false);
     }
 
@@ -174,13 +187,15 @@ public class PauseSettingsOverlay : MonoBehaviour
 
     private void Open()
     {
-        if (_uiRoot == null || _panel == null)
+        if (_uiRoot == null || _panel == null || _overlay == null)
         {
             EnsureUI();
         }
 
         EnsureEventSystem();
         ApplyCurrentSettingsToRuntime();
+
+        _overlay.SetActive(true);
         _panel.SetActive(true);
         _isOpen = true;
         Time.timeScale = 0f;
@@ -188,6 +203,11 @@ public class PauseSettingsOverlay : MonoBehaviour
 
     private void Close()
     {
+        if (_overlay != null)
+        {
+            _overlay.SetActive(false);
+        }
+
         if (_panel != null)
         {
             _panel.SetActive(false);
