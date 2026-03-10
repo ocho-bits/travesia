@@ -1730,6 +1730,7 @@ GameObject:
   - component: {fileID: 254596876}
   - component: {fileID: 254596875}
   - component: {fileID: 254596878}
+  - component: {fileID: 254596880}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1854,6 +1855,27 @@ MonoBehaviour:
   jumpCutMultiplier: 0.5
   fallGravityMultiplier: 1.7
   maxFallSpeed: 22
+--- !u!114 &254596880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254596873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ceabec9d614d31bcf6f7a7f9e5f5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationDriver2D
+  animator: {fileID: 1832868108}
+  spriteRenderer: {fileID: 1832868107}
+  graphicsTransform: {fileID: 1832868106}
+  motor: {fileID: 254596879}
+  input: {fileID: 254596878}
+  groundCheck: {fileID: 1124034854}
+  rb: {fileID: 254596876}
+  preferSpriteFlip: 1
+  facingDeadZone: 0.02
 --- !u!1 &261185497
 GameObject:
   m_ObjectHideFlags: 0
@@ -25218,7 +25240,7 @@ Animator:
   m_GameObject: {fileID: 1832868105}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5707c3b977363c449bf5698e0a5c9a2f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4fee192e8bd8720498251c458e183262, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -28357,3 +28379,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 254596874}
   - {fileID: 962290950}
+

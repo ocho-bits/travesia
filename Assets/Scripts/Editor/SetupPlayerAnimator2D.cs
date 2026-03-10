@@ -9,6 +9,7 @@ public static class SetupPlayerAnimator2D
     private const string AnimationsRoot = "Assets/Animations";
     private const string PlayerAnimationsRoot = "Assets/Animations/Player";
     private const string ControllerPath = "Assets/Animations/Player/Player.controller";
+    private const float RunThreshold = 0.1f;
 
     [MenuItem("Tools/Setup Player Animator 2D")]
     public static void Setup()
@@ -71,14 +72,29 @@ public static class SetupPlayerAnimator2D
         EnsureFolder(AnimationsRoot);
         EnsureFolder(PlayerAnimationsRoot);
 
-        AnimationClip runClip = FindRunClip();
-        if (runClip == null)
+        AnimationClip idleClip = FindClip(new[] { "She_Idle" }, "Assets/Animations/Player/She_Idle.anim");
+        AnimationClip runClip = FindClip(new[] { "She_Walk", "She-Walk" }, "Assets/Animations/Player/She_Walk.anim");
+        AnimationClip jumpClip = FindClip(new[] { "She_Jump" }, "Assets/Animations/Player/She_Jump.anim");
+
+        if (idleClip == null)
         {
-            Debug.LogError("[SetupPlayerAnimator2D] Could not find clip 'She-Walk' (or She_Walk). Animator setup aborted.");
+            Debug.LogError("[SetupPlayerAnimator2D] Could not find idle clip 'She_Idle'. Animator setup aborted.");
             return;
         }
 
-        AnimatorController controller = BuildController(runClip);
+        if (runClip == null)
+        {
+            Debug.LogError("[SetupPlayerAnimator2D] Could not find run clip 'She-Walk' / 'She_Walk'. Animator setup aborted.");
+            return;
+        }
+
+        if (jumpClip == null)
+        {
+            Debug.LogError("[SetupPlayerAnimator2D] Could not find jump clip 'She_Jump'. Animator setup aborted.");
+            return;
+        }
+
+        AnimatorController controller = BuildController(idleClip, runClip, jumpClip);
         animator.runtimeAnimatorController = controller;
 
         PlayerAnimationDriver2D driver = playerRoot.GetComponent<PlayerAnimationDriver2D>();
@@ -108,7 +124,6 @@ public static class SetupPlayerAnimator2D
         }
         catch
         {
-            // Tag may not exist.
         }
 
         if (byTag != null)
@@ -188,32 +203,25 @@ public static class SetupPlayerAnimator2D
         AssetDatabase.CreateFolder(parent, name);
     }
 
-    private static AnimationClip FindRunClip()
+    private static AnimationClip FindClip(IEnumerable<string> names, string fallbackPath)
     {
-        List<string> guids = new List<string>(AssetDatabase.FindAssets("t:AnimationClip She_Walk"));
-        guids.AddRange(AssetDatabase.FindAssets("t:AnimationClip She-Walk"));
-
-        foreach (string guid in guids)
+        foreach (string clipName in names)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
-            if (clip == null)
+            foreach (string guid in AssetDatabase.FindAssets($"t:AnimationClip {clipName}"))
             {
-                continue;
-            }
-
-            if (string.Equals(clip.name, "She-Walk", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(clip.name, "She_Walk", StringComparison.OrdinalIgnoreCase))
-            {
-                return clip;
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+                if (clip != null && string.Equals(clip.name, clipName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return clip;
+                }
             }
         }
 
-        // Fallback by known project path.
-        return AssetDatabase.LoadAssetAtPath<AnimationClip>("Assets/Art/Player/She_Walk.anim");
+        return AssetDatabase.LoadAssetAtPath<AnimationClip>(fallbackPath);
     }
 
-    private static AnimatorController BuildController(AnimationClip runClip)
+    private static AnimatorController BuildController(AnimationClip idleClip, AnimationClip runClip, AnimationClip jumpClip)
     {
         AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
         if (controller == null)
@@ -222,7 +230,7 @@ public static class SetupPlayerAnimator2D
         }
 
         RebuildParameters(controller);
-        RebuildBaseLayer(controller, runClip);
+        RebuildBaseLayer(controller, idleClip, runClip, jumpClip);
         RebuildOverlayLayer(controller, runClip);
 
         EditorUtility.SetDirty(controller);
@@ -244,7 +252,7 @@ public static class SetupPlayerAnimator2D
         controller.AddParameter("Overlay", AnimatorControllerParameterType.Int);
     }
 
-    private static void RebuildBaseLayer(AnimatorController controller, AnimationClip runClip)
+    private static void RebuildBaseLayer(AnimatorController controller, AnimationClip idleClip, AnimationClip runClip, AnimationClip jumpClip)
     {
         AnimatorControllerLayer[] layers = controller.layers;
         AnimatorControllerLayer baseLayer = layers.Length > 0 ? layers[0] : new AnimatorControllerLayer();
@@ -262,25 +270,52 @@ public static class SetupPlayerAnimator2D
 
         ClearStateMachine(sm);
 
-        AnimatorState run = sm.AddState("Run", new Vector3(250f, 120f, 0f));
+        AnimatorState idle = sm.AddState("Idle", new Vector3(120f, 120f, 0f));
+        idle.motion = idleClip;
+
+        AnimatorState run = sm.AddState("Run", new Vector3(420f, 120f, 0f));
         run.motion = runClip;
 
-        AnimatorState jump = sm.AddState("Jump", new Vector3(550f, 120f, 0f));
-        jump.motion = runClip; // Placeholder until a real jump clip exists.
+        AnimatorState jump = sm.AddState("Jump", new Vector3(270f, 320f, 0f));
+        jump.motion = jumpClip;
 
-        sm.defaultState = run;
+        sm.defaultState = idle;
+
+        AnimatorStateTransition idleToRun = idle.AddTransition(run);
+        ConfigureImmediateTransition(idleToRun);
+        idleToRun.AddCondition(AnimatorConditionMode.Greater, RunThreshold, "Speed");
+        idleToRun.AddCondition(AnimatorConditionMode.If, 0f, "Grounded");
+
+        AnimatorStateTransition runToIdle = run.AddTransition(idle);
+        ConfigureImmediateTransition(runToIdle);
+        runToIdle.AddCondition(AnimatorConditionMode.Less, RunThreshold, "Speed");
+        runToIdle.AddCondition(AnimatorConditionMode.If, 0f, "Grounded");
+
+        AnimatorStateTransition idleToJumpByGrounded = idle.AddTransition(jump);
+        ConfigureImmediateTransition(idleToJumpByGrounded);
+        idleToJumpByGrounded.AddCondition(AnimatorConditionMode.IfNot, 0f, "Grounded");
 
         AnimatorStateTransition runToJumpByGrounded = run.AddTransition(jump);
         ConfigureImmediateTransition(runToJumpByGrounded);
         runToJumpByGrounded.AddCondition(AnimatorConditionMode.IfNot, 0f, "Grounded");
 
+        AnimatorStateTransition idleToJumpByTrigger = idle.AddTransition(jump);
+        ConfigureImmediateTransition(idleToJumpByTrigger);
+        idleToJumpByTrigger.AddCondition(AnimatorConditionMode.If, 0f, "Jump");
+
         AnimatorStateTransition runToJumpByTrigger = run.AddTransition(jump);
         ConfigureImmediateTransition(runToJumpByTrigger);
         runToJumpByTrigger.AddCondition(AnimatorConditionMode.If, 0f, "Jump");
 
+        AnimatorStateTransition jumpToIdle = jump.AddTransition(idle);
+        ConfigureImmediateTransition(jumpToIdle);
+        jumpToIdle.AddCondition(AnimatorConditionMode.If, 0f, "Grounded");
+        jumpToIdle.AddCondition(AnimatorConditionMode.Less, RunThreshold, "Speed");
+
         AnimatorStateTransition jumpToRun = jump.AddTransition(run);
         ConfigureImmediateTransition(jumpToRun);
         jumpToRun.AddCondition(AnimatorConditionMode.If, 0f, "Grounded");
+        jumpToRun.AddCondition(AnimatorConditionMode.Greater, RunThreshold, "Speed");
 
         baseLayer.stateMachine = sm;
 
@@ -302,7 +337,7 @@ public static class SetupPlayerAnimator2D
 
         AnimatorState empty = overlaySm.AddState("Empty", new Vector3(250f, 120f, 0f));
         AnimatorState reaction = overlaySm.AddState("ReactionPlaceholder", new Vector3(550f, 120f, 0f));
-        reaction.motion = runClip; // Placeholder clip for contextual reactions.
+        reaction.motion = runClip;
         overlaySm.defaultState = empty;
 
         AnimatorStateTransition emptyToReaction = empty.AddTransition(reaction);
@@ -385,3 +420,5 @@ public static class SetupPlayerAnimator2D
         so.ApplyModifiedPropertiesWithoutUndo();
     }
 }
+
+

@@ -21,8 +21,14 @@ public sealed class PlayerAnimationDriver2D : MonoBehaviour
     private static readonly int JumpHash = Animator.StringToHash("Jump");
     private static readonly int OverlayHash = Animator.StringToHash("Overlay");
 
+    private const float JumpQueueWindow = 0.2f;
+    private const float JumpTakeoffVelocityThreshold = 0.05f;
+
     private Coroutine overlayRoutine;
     private Vector3 graphicsBaseScale = Vector3.one;
+    private bool wasGrounded;
+    private bool jumpQueued;
+    private float jumpQueueExpiresAt;
 
     private bool loggedMissingAnimator;
     private bool loggedMissingMotor;
@@ -48,6 +54,11 @@ public sealed class PlayerAnimationDriver2D : MonoBehaviour
         {
             animator.applyRootMotion = false;
         }
+
+        if (groundCheck != null)
+        {
+            wasGrounded = groundCheck.IsGrounded;
+        }
     }
 
     private void Update()
@@ -63,13 +74,32 @@ public sealed class PlayerAnimationDriver2D : MonoBehaviour
         animator.SetFloat(SpeedHash, horizontalSpeed);
         animator.SetBool(GroundedHash, grounded);
 
-        // Uses existing input edge event and only fires on press frame.
+        // Queue the player's existing jump input and fire Jump only when the
+        // motor has actually begun takeoff, keeping animation aligned to physics.
         if (input != null && input.JumpPressedThisFrame)
         {
+            jumpQueued = true;
+            jumpQueueExpiresAt = Time.time + JumpQueueWindow;
+        }
+
+        if (jumpQueued && Time.time > jumpQueueExpiresAt)
+        {
+            jumpQueued = false;
+        }
+
+        if (jumpQueued && !grounded && rb.linearVelocity.y > JumpTakeoffVelocityThreshold)
+        {
             animator.SetTrigger(JumpHash);
+            jumpQueued = false;
+        }
+
+        if (!wasGrounded && grounded)
+        {
+            jumpQueued = false;
         }
 
         UpdateFacing();
+        wasGrounded = grounded;
     }
 
     public void SetOverlay(int id)
