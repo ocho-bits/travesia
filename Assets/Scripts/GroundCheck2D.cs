@@ -8,10 +8,35 @@ public sealed class GroundCheck2D : MonoBehaviour
 
     public bool IsGrounded { get; private set; }
 
+    void Awake()
+    {
+        RefreshGroundedState();
+    }
+
+    void OnEnable()
+    {
+        RefreshGroundedState();
+    }
+
+    public void RefreshGroundedState()
+    {
+        if (groundPoint == null)
+        {
+            IsGrounded = false;
+            return;
+        }
+
+        IsGrounded = Physics2D.OverlapBox(groundPoint.position, boxSize, 0f, groundMask) != null;
+    }
+
+    void Update()
+    {
+        RefreshGroundedState();
+    }
+
     void FixedUpdate()
     {
-        if (groundPoint == null) return;
-        IsGrounded = Physics2D.OverlapBox(groundPoint.position, boxSize, 0f, groundMask) != null;
+        RefreshGroundedState();
     }
 
 #if UNITY_EDITOR

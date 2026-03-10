@@ -28,6 +28,8 @@ public sealed class PlayerMotor2D : MonoBehaviour
     private float coyoteTimer;
     private float jumpBufferTimer;
 
+    public int JumpSequence { get; private set; }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -84,6 +86,7 @@ public sealed class PlayerMotor2D : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
             coyoteTimer = 0f;
             jumpBufferTimer = 0f;
+            JumpSequence++;
         }
 
         // Jump cut: if player releases jump while rising, cut velocity
@@ -106,3 +109,4 @@ public sealed class PlayerMotor2D : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
     }
 }
+
