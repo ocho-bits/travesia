@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6fcf44e10a1a01b418d10e988018faa8
+timeCreated: 1473312834
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Demo/AnimRun.anim
+  uploadId: 390137

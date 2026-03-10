@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 9384c680ef42c7e47a59d1d1534ef847
+timeCreated: 1590122617
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Demo/Scripts/ExampleCharacter.cs
+  uploadId: 390137

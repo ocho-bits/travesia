@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4430f8dac849f294a95ae688a0cc7253
+timeCreated: 1473323122
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Documentation/PowerSpriteAnimator-Manual.pdf
+  uploadId: 390137

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 89b238b6f5135cd40aeb134cad217f65
+timeCreated: 1490578099
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Demo/AnimIdle.anim
+  uploadId: 390137

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4a91f7930b199bc44b331f612089249c
+timeCreated: 1473297501
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Resources/SpriteAnimPlaceholder.anim
+  uploadId: 390137

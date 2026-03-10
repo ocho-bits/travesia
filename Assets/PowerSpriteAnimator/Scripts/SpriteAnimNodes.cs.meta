@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 8cf860f4296d4d04fb8c9e2b8c326c7c
+timeCreated: 1474615167
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Scripts/SpriteAnimNodes.cs
+  uploadId: 390137

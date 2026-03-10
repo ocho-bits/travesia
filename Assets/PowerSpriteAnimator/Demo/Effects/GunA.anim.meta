@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fb0cacbabbd753e4bb3168424a14b09c
+timeCreated: 1590108282
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71177
+  packageName: PowerSprite Animator
+  packageVersion: 1.7.2
+  assetPath: Assets/PowerSpriteAnimator/Demo/Effects/GunA.anim
+  uploadId: 390137
