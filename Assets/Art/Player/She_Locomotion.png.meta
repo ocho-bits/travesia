@@ -188,8 +188,8 @@ TextureImporter:
       name: She_Locomotion_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 128
+        y: 192
         width: 32
         height: 64
       alignment: 0
@@ -210,8 +210,8 @@ TextureImporter:
       name: She_Locomotion_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
+        x: 160
+        y: 192
         width: 32
         height: 64
       alignment: 0
@@ -232,8 +232,8 @@ TextureImporter:
       name: She_Locomotion_6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 192
+        y: 192
         width: 32
         height: 64
       alignment: 0
@@ -254,8 +254,8 @@ TextureImporter:
       name: She_Locomotion_7
       rect:
         serializedVersion: 2
-        x: 96
-        y: 128
+        x: 224
+        y: 192
         width: 32
         height: 64
       alignment: 0
@@ -277,7 +277,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -299,7 +299,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 64
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -321,7 +321,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -343,7 +343,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 64
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -364,8 +364,8 @@ TextureImporter:
       name: She_Locomotion_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 128
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: She_Locomotion_13
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 160
+        y: 128
         width: 32
         height: 64
       alignment: 0
@@ -400,6 +400,72 @@ TextureImporter:
       bones: []
       spriteID: 3a248e6490d119d41b21c2146b3259a9
       internalID: -1951726803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: She_Locomotion_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1a3609fce9767547bd2422dae6e2dc9
+      internalID: 161278666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: She_Locomotion_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08fa0fb0c8c170845af18e5615de81ce
+      internalID: -574035660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: She_Locomotion_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82c46ab54567c26429f1b87256c3682b
+      internalID: -960901821
       vertices: []
       indices: 
       edges: []
@@ -426,6 +492,9 @@ TextureImporter:
       She_Locomotion_11: -2066028125
       She_Locomotion_12: -2041006821
       She_Locomotion_13: -1951726803
+      She_Locomotion_14: 161278666
+      She_Locomotion_15: -574035660
+      She_Locomotion_16: -960901821
       She_Locomotion_2: 449206484
       She_Locomotion_3: -771477051
       She_Locomotion_4: -1382998696
