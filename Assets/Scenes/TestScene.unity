@@ -460,10 +460,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254596874}
-  - component: {fileID: 254596879}
-  - component: {fileID: 254596876}
   - component: {fileID: 254596875}
-  - component: {fileID: 254596878}
+  - component: {fileID: 254596876}
+  - component: {fileID: 254596879}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -552,18 +551,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &254596878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254596873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306dcb5cc0625314aa4803356c16f6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput2D
 --- !u!114 &254596879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,21 +560,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 254596873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6473f27ca35b4bd49aa76fdf25ce9fb9, type: 3}
+  m_Script: {fileID: 11500000, guid: e1d3a1b965b4485da6f7b1a93e2b40c1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor2D
-  input: {fileID: 0}
-  groundCheck: {fileID: 0}
-  maxSpeed: 7.5
-  accel: 60
-  decel: 70
-  airControlMultiplier: 0.65
+  m_EditorClassIdentifier: Assembly-CSharp::SimplePlayer2D
+  rb: {fileID: 254596876}
+  visualRoot: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  groundPoint: {fileID: 1124034853}
+  moveSpeed: 5
   jumpVelocity: 12.5
-  coyoteTime: 0.1
-  jumpBuffer: 0.1
-  jumpCutMultiplier: 0.5
-  fallGravityMultiplier: 1.7
-  maxFallSpeed: 22
+  groundBoxSize: {x: 0.45, y: 0.12}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  preferSpriteFlip: 1
+  facingDeadZone: 0.02
 --- !u!1 &299286845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,7 +2109,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1124034853}
-  - component: {fileID: 1124034854}
   m_Layer: 0
   m_Name: GroundPoint
   m_TagString: Untagged
@@ -2144,23 +2131,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 254596874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1124034854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124034852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0893bbd16d852341928e89d87b97dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GroundCheck2D
-  groundPoint: {fileID: 1124034853}
-  boxSize: {x: 0.45, y: 0.1}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &1255347343
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,3 +2989,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 254596874}
   - {fileID: 962290950}
+
+
+
