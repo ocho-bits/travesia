@@ -33,16 +33,34 @@ public class PauseSettingsOverlay : MonoBehaviour
     private bool _isOpen;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void Bootstrap()
+    private static void RegisterSceneHooks()
     {
-        if (_instance != null)
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private static void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool isMainMenu = string.Equals(scene.name, MainMenuSceneName, StringComparison.OrdinalIgnoreCase);
+        if (isMainMenu)
         {
+            if (_instance != null)
+            {
+                _instance.Close();
+                _instance.enabled = false;
+            }
+
             return;
         }
 
-        GameObject go = new GameObject("PauseSettingsOverlay");
-        _instance = go.AddComponent<PauseSettingsOverlay>();
-        DontDestroyOnLoad(go);
+        if (_instance == null)
+        {
+            GameObject go = new GameObject("PauseSettingsOverlay");
+            _instance = go.AddComponent<PauseSettingsOverlay>();
+            DontDestroyOnLoad(go);
+        }
+
+        _instance.HandleGameplaySceneLoaded();
     }
 
     private void Awake()
@@ -55,18 +73,10 @@ public class PauseSettingsOverlay : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void Start()
-    {
-        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-
         if (_instance == this)
         {
             _instance = null;
@@ -88,20 +98,9 @@ public class PauseSettingsOverlay : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void HandleGameplaySceneLoaded()
     {
-        bool isMainMenu = string.Equals(scene.name, MainMenuSceneName, StringComparison.OrdinalIgnoreCase);
-        enabled = !isMainMenu;
-
-        if (isMainMenu)
-        {
-            Close();
-            if (_uiRoot != null)
-            {
-                _uiRoot.SetActive(false);
-            }
-            return;
-        }
+        enabled = true;
 
         EnsureEventSystem();
         EnsureUI();
@@ -211,6 +210,11 @@ public class PauseSettingsOverlay : MonoBehaviour
         if (_panel != null)
         {
             _panel.SetActive(false);
+        }
+
+        if (_uiRoot != null && string.Equals(SceneManager.GetActiveScene().name, MainMenuSceneName, StringComparison.OrdinalIgnoreCase))
+        {
+            _uiRoot.SetActive(false);
         }
 
         _isOpen = false;

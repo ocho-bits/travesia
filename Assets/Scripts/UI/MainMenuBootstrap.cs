@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[ExecuteAlways]
 public class MainMenuBootstrap : MonoBehaviour
 {
     [Header("Scene Routing")]
@@ -30,7 +29,7 @@ public class MainMenuBootstrap : MonoBehaviour
 
     private TMP_Text _languageText;
 
-    private void OnEnable()
+    private void Awake()
     {
         EnsureSceneSetup();
     }
@@ -52,8 +51,9 @@ public class MainMenuBootstrap : MonoBehaviour
     {
         EnsureCamera();
         EnsureEventSystem();
-        BuildOrRefreshUI();
+        BuildOrBindUI();
         ApplySettings();
+        BackToMenu();
     }
 
     private void EnsureCamera()
@@ -94,7 +94,37 @@ public class MainMenuBootstrap : MonoBehaviour
         }
     }
 
-    private void BuildOrRefreshUI()
+    private void BuildOrBindUI()
+    {
+        GameObject existingRoot = GameObject.Find(RootName);
+        if (existingRoot != null && BindExistingUI(existingRoot.transform))
+        {
+            return;
+        }
+
+        BuildFallbackUI();
+    }
+
+    private bool BindExistingUI(Transform root)
+    {
+        Transform menuPanel = root.Find("MenuPanel");
+        Transform tracksPanel = root.Find("TracksPanel");
+        Transform settingsPanel = root.Find("SettingsPanel");
+
+        if (menuPanel == null || tracksPanel == null || settingsPanel == null)
+        {
+            return false;
+        }
+
+        _menuPanel = menuPanel.gameObject;
+        _tracksPanel = tracksPanel.gameObject;
+        _settingsPanel = settingsPanel.gameObject;
+        Transform languageValue = root.Find("SettingsPanel/SettingsContent/Language/LanguageValue");`r`n        if (languageValue != null)`r`n        {`r`n            _languageText = languageValue.GetComponent<TextMeshProUGUI>();`r`n        }
+
+        return true;
+    }
+
+    private void BuildFallbackUI()
     {
         _tmpFont = TMP_Settings.defaultFontAsset;
         if (_tmpFont == null)
@@ -103,19 +133,6 @@ public class MainMenuBootstrap : MonoBehaviour
         }
 
         _whiteSprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f));
-
-        GameObject existing = GameObject.Find(RootName);
-        if (existing != null)
-        {
-            if (Application.isPlaying)
-            {
-                Destroy(existing);
-            }
-            else
-            {
-                DestroyImmediate(existing);
-            }
-        }
 
         GameObject canvasGo = new GameObject(RootName, typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         Canvas canvas = canvasGo.GetComponent<Canvas>();
@@ -150,8 +167,6 @@ public class MainMenuBootstrap : MonoBehaviour
 
         _tracksPanel = BuildTracksPanel(root);
         _settingsPanel = BuildSettingsPanel(root);
-
-        BackToMenu();
     }
 
     private GameObject BuildTracksPanel(RectTransform root)
@@ -506,3 +521,4 @@ public class MainMenuBootstrap : MonoBehaviour
 #endif
     }
 }
+
