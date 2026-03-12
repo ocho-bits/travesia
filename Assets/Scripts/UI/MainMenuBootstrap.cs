@@ -97,9 +97,14 @@ public class MainMenuBootstrap : MonoBehaviour
     private void BuildOrBindUI()
     {
         GameObject existingRoot = GameObject.Find(RootName);
-        if (existingRoot != null && BindExistingUI(existingRoot.transform))
+        if (existingRoot != null)
         {
-            return;
+            if (BindExistingUI(existingRoot.transform))
+            {
+                return;
+            }
+
+            Debug.LogWarning("[MainMenuBootstrap] Existing __MainMenuUI is missing expected controls. Building fallback UI.", this);
         }
 
         BuildFallbackUI();
@@ -119,9 +124,88 @@ public class MainMenuBootstrap : MonoBehaviour
         _menuPanel = menuPanel.gameObject;
         _tracksPanel = tracksPanel.gameObject;
         _settingsPanel = settingsPanel.gameObject;
-        Transform languageValue = root.Find("SettingsPanel/SettingsContent/Language/LanguageValue");`r`n        if (languageValue != null)`r`n        {`r`n            _languageText = languageValue.GetComponent<TextMeshProUGUI>();`r`n        }
+
+        _languageText = RequireComponent<TextMeshProUGUI>(root, "SettingsPanel/SettingsContent/Language/LanguageValue");
+
+        BindButton(root, "MenuPanel/PlayButton", StartPlay);
+        BindButton(root, "MenuPanel/TracksButton", ShowTracks);
+        BindButton(root, "MenuPanel/SettingsButton", ShowSettings);
+        BindButton(root, "MenuPanel/ExitButton", ExitGame);
+        BindButton(root, "TracksPanel/TracksContent/BackButton", BackToMenu);
+        BindButton(root, "SettingsPanel/SettingsContent/BackButton", BackToMenu);
+        BindButton(root, "SettingsPanel/SettingsContent/Language/<Button", PreviousLanguage);
+        BindButton(root, "SettingsPanel/SettingsContent/Language/>Button", NextLanguage);
+
+        for (int i = 0; i < 9; i++)
+        {
+            int index = i;
+            Button button = RequireComponent<Button>(root, $"TracksPanel/TracksContent/TrackGrid/Track {i + 1}Button");
+            if (button == null)
+            {
+                continue;
+            }
+
+            string sceneName = trackSceneNames[index];
+            bool assigned = !string.IsNullOrWhiteSpace(sceneName);
+            button.interactable = assigned;
+            button.onClick.AddListener(() => LoadTrack(index));
+        }
+
+        BindSlider(root, "SettingsPanel/SettingsContent/Sound Volume/Slider", SoundKey, true);
+        BindSlider(root, "SettingsPanel/SettingsContent/Music Volume/Slider", MusicKey, false);
+        BindSlider(root, "SettingsPanel/SettingsContent/Brightness/Slider", BrightnessKey, false);
+        BindSlider(root, "SettingsPanel/SettingsContent/Contrast/Slider", ContrastKey, false);
 
         return true;
+    }
+
+    private void BindButton(Transform root, string path, UnityEngine.Events.UnityAction action)
+    {
+        Button button = RequireComponent<Button>(root, path);
+        if (button == null)
+        {
+            return;
+        }
+
+        button.onClick.AddListener(action);
+    }
+
+    private void BindSlider(Transform root, string path, string key, bool applyAudio)
+    {
+        Slider slider = RequireComponent<Slider>(root, path);
+        if (slider == null)
+        {
+            return;
+        }
+
+        slider.SetValueWithoutNotify(PlayerPrefs.GetFloat(key, 0.8f));
+        slider.onValueChanged.AddListener(value =>
+        {
+            PlayerPrefs.SetFloat(key, value);
+            PlayerPrefs.Save();
+            if (applyAudio)
+            {
+                AudioListener.volume = value;
+            }
+        });
+    }
+
+    private T RequireComponent<T>(Transform root, string path) where T : Component
+    {
+        Transform target = root.Find(path);
+        if (target == null)
+        {
+            Debug.LogError($"[MainMenuBootstrap] Missing UI element at path '{path}'.", this);
+            return null;
+        }
+
+        T component = target.GetComponent<T>();
+        if (component == null)
+        {
+            Debug.LogError($"[MainMenuBootstrap] Missing component {typeof(T).Name} on '{path}'.", this);
+        }
+
+        return component;
     }
 
     private void BuildFallbackUI()
@@ -160,10 +244,10 @@ public class MainMenuBootstrap : MonoBehaviour
         f.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
         CreateText("Title", _menuPanel.transform as RectTransform, "TRAVESIA", 56, FontStyles.Bold, TextAlignmentOptions.Center, new Vector2(460f, 100f));
-        CreateButton("Play", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), StartPlay);
-        CreateButton("Tracks", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ShowTracks);
-        CreateButton("Settings", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ShowSettings);
-        CreateButton("Exit", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ExitGame);
+        CreateButton("Play", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), StartPlay).gameObject.name = "PlayButton";
+        CreateButton("Tracks", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ShowTracks).gameObject.name = "TracksButton";
+        CreateButton("Settings", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ShowSettings).gameObject.name = "SettingsButton";
+        CreateButton("Exit", _menuPanel.transform as RectTransform, new Vector2(420f, 84f), ExitGame).gameObject.name = "ExitButton";
 
         _tracksPanel = BuildTracksPanel(root);
         _settingsPanel = BuildSettingsPanel(root);
@@ -207,10 +291,12 @@ public class MainMenuBootstrap : MonoBehaviour
             bool assigned = !string.IsNullOrWhiteSpace(sceneName);
             string label = assigned ? $"Track {i + 1}" : $"Track {i + 1} (Unassigned)";
             Button b = CreateButton(label, gridRt, new Vector2(320f, 100f), () => LoadTrack(index));
+            b.gameObject.name = $"Track {i + 1}Button";
             b.interactable = assigned;
         }
 
         Button back = CreateButton("Back", contentRt, new Vector2(260f, 80f), BackToMenu);
+        back.gameObject.name = "BackButton";
         back.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -300f);
 
         return panel;
@@ -238,6 +324,7 @@ public class MainMenuBootstrap : MonoBehaviour
         CreateLanguageRow(contentRt, new Vector2(0f, -190f));
 
         Button back = CreateButton("Back", contentRt, new Vector2(260f, 80f), BackToMenu);
+        back.gameObject.name = "BackButton";
         back.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -300f);
 
         return panel;
@@ -286,12 +373,14 @@ public class MainMenuBootstrap : MonoBehaviour
         label.rectTransform.anchoredPosition = new Vector2(-300f, 0f);
 
         Button prev = CreateButton("<", rowRt, new Vector2(70f, 56f), PreviousLanguage);
+        prev.gameObject.name = "<Button";
         prev.GetComponent<RectTransform>().anchoredPosition = new Vector2(60f, 0f);
 
         _languageText = CreateText("LanguageValue", rowRt, "English", 26, FontStyles.Normal, TextAlignmentOptions.Center, new Vector2(220f, 50f));
         _languageText.rectTransform.anchoredPosition = new Vector2(200f, 0f);
 
         Button next = CreateButton(">", rowRt, new Vector2(70f, 56f), NextLanguage);
+        next.gameObject.name = ">Button";
         next.GetComponent<RectTransform>().anchoredPosition = new Vector2(340f, 0f);
     }
 
@@ -461,6 +550,12 @@ public class MainMenuBootstrap : MonoBehaviour
 
     private void ShowTracks()
     {
+        if (_menuPanel == null || _tracksPanel == null || _settingsPanel == null)
+        {
+            Debug.LogError("[MainMenuBootstrap] Menu panels are not fully assigned.", this);
+            return;
+        }
+
         _menuPanel.SetActive(false);
         _tracksPanel.SetActive(true);
         _settingsPanel.SetActive(false);
@@ -468,6 +563,12 @@ public class MainMenuBootstrap : MonoBehaviour
 
     private void ShowSettings()
     {
+        if (_menuPanel == null || _tracksPanel == null || _settingsPanel == null)
+        {
+            Debug.LogError("[MainMenuBootstrap] Menu panels are not fully assigned.", this);
+            return;
+        }
+
         _menuPanel.SetActive(false);
         _tracksPanel.SetActive(false);
         _settingsPanel.SetActive(true);
@@ -521,4 +622,3 @@ public class MainMenuBootstrap : MonoBehaviour
 #endif
     }
 }
-
