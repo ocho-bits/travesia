@@ -69,7 +69,7 @@ public sealed class MusicCue
     public string eventId;
 
     [Header("Camera Zoom")]
-    public OrthoZoomDirector2D zoomDirector;
+    public string zoomBindingId;
     public float zoomTarget = 6f;
 
     [Min(0f)]
@@ -79,7 +79,7 @@ public sealed class MusicCue
     public bool zoomSnap;
 
     [Header("Player Overlay")]
-    public SimplePlayer2D player;
+    public string playerBindingId;
     public int overlayId;
 
     [Min(0f)]
@@ -90,10 +90,10 @@ public sealed class MusicCue
         switch (actionType)
         {
             case MusicCueActionType.CameraZoom:
-                zoomDirector?.SetZoom(zoomTarget, zoomDuration, zoomCurve, zoomSnap);
+                director.ResolveZoomDirector(zoomBindingId)?.SetZoom(zoomTarget, zoomDuration, zoomCurve, zoomSnap);
                 break;
             case MusicCueActionType.PlayerOverlay:
-                player?.PlayOverlayForSeconds(overlayId, overlayDuration);
+                director.ResolvePlayer(playerBindingId)?.PlayOverlayForSeconds(overlayId, overlayDuration);
                 break;
             case MusicCueActionType.CustomEvent:
                 director.RaiseCustomCue(this);

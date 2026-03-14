@@ -11,9 +11,27 @@ public sealed class MusicSyncDirector : MonoBehaviour
     {
     }
 
+    [Serializable]
+    public sealed class ZoomBinding
+    {
+        public string id;
+        public OrthoZoomDirector2D director;
+    }
+
+    [Serializable]
+    public sealed class PlayerBinding
+    {
+        public string id;
+        public SimplePlayer2D player;
+    }
+
     [Header("References")]
     [SerializeField] private MusicTimelineAsset timeline;
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Scene Bindings")]
+    [SerializeField] private List<ZoomBinding> zoomBindings = new List<ZoomBinding>();
+    [SerializeField] private List<PlayerBinding> playerBindings = new List<PlayerBinding>();
 
     [Header("Playback")]
     [Tooltip("Lead time before playback starts to ensure deterministic scheduling.")]
@@ -57,6 +75,44 @@ public sealed class MusicSyncDirector : MonoBehaviour
 
             return timeline.SongTimeToBeats(PlaybackTimeSeconds);
         }
+    }
+
+    public OrthoZoomDirector2D ResolveZoomDirector(string bindingId)
+    {
+        if (string.IsNullOrWhiteSpace(bindingId))
+        {
+            return null;
+        }
+
+        for (int i = 0; i < zoomBindings.Count; i++)
+        {
+            ZoomBinding binding = zoomBindings[i];
+            if (binding != null && string.Equals(binding.id, bindingId, StringComparison.OrdinalIgnoreCase))
+            {
+                return binding.director;
+            }
+        }
+
+        return null;
+    }
+
+    public SimplePlayer2D ResolvePlayer(string bindingId)
+    {
+        if (string.IsNullOrWhiteSpace(bindingId))
+        {
+            return null;
+        }
+
+        for (int i = 0; i < playerBindings.Count; i++)
+        {
+            PlayerBinding binding = playerBindings[i];
+            if (binding != null && string.Equals(binding.id, bindingId, StringComparison.OrdinalIgnoreCase))
+            {
+                return binding.player;
+            }
+        }
+
+        return null;
     }
 
     private void Reset()

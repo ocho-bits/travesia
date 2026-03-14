@@ -28339,6 +28339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusicSyncDirector
   timeline: {fileID: 11400000, guid: 6c2d0e92bdc14af3a668e2781ad47e8c, type: 2}
   audioSource: {fileID: 2700300003}
+  zoomBindings: []
+  playerBindings: []
   scheduleLeadTime: 0.1
   playOnStart: 1
   onCustomCue:
@@ -28354,4 +28356,5 @@ SceneRoots:
   - {fileID: 8695184356644706171}
   - {fileID: 962290950}
   - {fileID: 2700300002}
+
 
